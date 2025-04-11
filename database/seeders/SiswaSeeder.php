@@ -13,10 +13,25 @@ class SiswaSeeder extends Seeder
      */
     public function run(): void
     {
+        // siswa::create([
+        //     'name' => 'Danu',
+        //     'username' => '18767',
+        //     'password' => Hash::make('18767'), // Gunakan Hash::make()
+        // ]);
+        // siswa::create([
+        //     'name' => 'Luna',
+        //     'username' => '18755',
+        //     'password' => Hash::make('18755'), // Gunakan Hash::make()
+        // ]);
+        // siswa::create([
+        //     'name' => 'Adi',
+        //     'username' => '18752',
+        //     'password' => Hash::make('18752'), // Gunakan Hash::make()
+        // ]);
         siswa::create([
-            'name' => 'Lovy',
-            'username' => '18758',
-            'password' => Hash::make('18758'), // Gunakan Hash::make()
+            'name' => 'Radit',
+            'username' => '18804',
+            'password' => Hash::make('18804'), // Gunakan Hash::make()
         ]);
     }
 }

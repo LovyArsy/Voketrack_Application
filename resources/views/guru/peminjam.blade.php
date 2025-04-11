@@ -68,7 +68,7 @@
 </head>
 <body>
     <div class="container-custom">
-        <h2 class="text-black text-center">Daftar Alat yang Dipinjam oleh {{ $peminjams->first()->peminjam->name }}</h2>
+        <h2 class="text-black text-center">Daftar Alat yang Dipinjam oleh Guru {{ $peminjams->first()->peminjam->name  }}</h2>
 
         <div class="text-center my-3">
             <a href="/scan" class="btn btn-primary">Pinjam Barang</a>

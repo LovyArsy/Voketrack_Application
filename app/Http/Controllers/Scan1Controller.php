@@ -22,8 +22,6 @@ class Scan1Controller extends Controller
     }
 
 
-
-    
     public function index()
     {
         return view('crdpeminjams.scan');

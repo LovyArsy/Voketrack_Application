@@ -62,7 +62,7 @@
 </head>
 <body>
     <div class="container-custom">
-        <h2 class="text-black text-center">Barang yang Telah Dikembalikan oleh {{ $peminjams->first()->peminjam->name }}</h2>
+        <h2 class="text-black text-center">Barang yang Telah Dikembalikan oleh Guru {{ $peminjams->first()->peminjam->name }}</h2>
 
         <div class="table-responsive">
             <table class="table table-bordered table-striped text-center">
