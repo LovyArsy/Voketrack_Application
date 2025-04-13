@@ -31,7 +31,8 @@ class SiswaSeeder extends Seeder
         siswa::create([
             'name' => 'Radit',
             'username' => '18804',
-            'password' => Hash::make('18804'), // Gunakan Hash::make()
+            'password' => Hash::make('18804'),
+            'gambar' => 'siswa1.png'
         ]);
     }
 }

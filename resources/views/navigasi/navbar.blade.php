@@ -81,6 +81,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/daftarpengembalian">Data Kembali</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/guru">Data Akun</a>
+                    </li>
                 </ul>
             </div>
 

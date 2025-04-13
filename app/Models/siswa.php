@@ -13,7 +13,8 @@ class siswa extends Authenticatable
     protected $fillable = [
         'name',
         'username',
-        'password'
+        'password',
+        'gambar'
     ];
 
     protected $hidden = [

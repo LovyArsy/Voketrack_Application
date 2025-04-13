@@ -10,7 +10,7 @@ class Peminjam extends Model
 {
     use HasFactory;
 
-    protected $table = 'peminjams'; // Sesuai perubahan tabel
+    protected $table = 'peminjams'; 
 
     protected $fillable = [
     'peminjam_id',
@@ -18,9 +18,9 @@ class Peminjam extends Model
     'barang_id',
     'pinjam_date',
     'kembali_date',
-    'kembalinya_date', // Tambahkan ini
-    'foto_bukti',      // Tambahkan ini
-    'denda',           // Tambahkan ini
+    'kembalinya_date', 
+    'foto_bukti',      
+    'denda',           
     'status',
 ];
 

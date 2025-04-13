@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Peminjam;
 use App\Models\Barang;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
 
 
 class PeminjamController extends Controller
@@ -14,30 +16,28 @@ class PeminjamController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $userId = auth()->id(); // Ambil ID pengguna yang login
+{
+    $userId = auth()->id(); // Ambil ID user yang sedang login
 
-        $peminjams = Peminjam::with(['peminjam'])
+    // Cek apakah guru sudah meminjam barang
+    $peminjams = Peminjam::with(['peminjam'])
         ->where('status', 'dipinjam') 
-        ->where('peminjam_id', $userId) // Hanya yang dipinjam oleh pengguna ini
-        ->where('peminjam_type', 'App\Models\Guru') // Pastikan hanya untuk Guru
+        ->where('peminjam_id', $userId)
+        ->where('peminjam_type', 'App\Models\Guru') 
         ->latest()
         ->get();
 
-
-        return view('guru.peminjam', compact('peminjams'));
-
-
-    //    $peminjams = Peminjam::with(['peminjam'])
-    //     ->where('status', 'dipinjam') // Hanya ambil yang statusnya "dipinjam"
-    //     ->latest()
-    //     ->get();
-        
-
-    //     return view('guru.peminjam', compact('peminjams'));
+    // Jika tidak ada peminjaman, redirect ke halaman scan dengan pesan error
+    if ($peminjams->isEmpty()) {
+        return redirect('scan') // Ubah dengan route halaman scan yang sesuai
+            ->with('error', 'Anda harus meminjam barang terlebih dahulu');
     }
-    
 
+    return view('guru.peminjam', compact('peminjams'));
+}
+
+    
+//ini memperlihatkan seluruh peminjamaan dari banyaknya akun
     public function daftarpeminjaman() {
 
         $peminjams = Peminjam::with(['peminjam'])
@@ -61,17 +61,25 @@ class PeminjamController extends Controller
 
     public function pengembalian()
 {
-        $userId = auth()->id(); // Ambil ID pengguna yang login
+    $userId = auth()->id(); // Ambil ID pengguna yang sedang login
 
-        $peminjams = Peminjam::with(['peminjam'])
+    // Cek apakah guru sudah mengembalikan barang
+    $peminjams = Peminjam::with(['peminjam'])
         ->where('status', 'dikembalikan') 
         ->where('peminjam_id', $userId) // Hanya yang dipinjam oleh pengguna ini
         ->where('peminjam_type', 'App\Models\Guru') // Pastikan hanya untuk Guru
         ->latest()
         ->get();
 
+    // Jika tidak ada pengembalian, redirect ke halaman scan dengan pesan error
+    if ($peminjams->isEmpty()) {
+        return redirect()->route('scan.index') // Ubah dengan route halaman scan yang sesuai
+            ->with('error', 'Data peminjaman masih kosong, silahkan kembalikan atau pinjam barang');
+    }
+
     return view('guru.pengembalian', compact('peminjams'));
 }
+
 
     /**
      * Show the form for creating a new resource.
@@ -92,13 +100,13 @@ class PeminjamController extends Controller
             return redirect()->back()->with('error', 'Session peminjam tidak tersedia. Silakan login ulang.');
         }
 
-        // Simpan peminjam ke variabel
+        
         $peminjam = [
             'id' => session('peminjam_id'),
             'type' => session('peminjam_type')
         ];
 
-        // Validasi request
+        
         $request->validate([
             'barang_id' => 'required|exists:barangs,id',
         ]);
@@ -153,7 +161,7 @@ class PeminjamController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
 {
     try {
         $request->validate([
@@ -167,14 +175,15 @@ class PeminjamController extends Controller
         $imageName = time() . '.' . $image->extension();
         $image->move(public_path('bukti_pengembalian'), $imageName);
 
-        // Tanggal pengembalian
+        // Ambil tanggal tanpa jam
         $kembalinya_date = now();
-        $kembali_date = $peminjaman->kembali_date;
+        $tanggal_kembali = $kembalinya_date->toDateString();
+        $tanggal_batas = \Carbon\Carbon::parse($peminjaman->kembali_date)->toDateString();
 
-        // Hitung denda jika telat
-        $denda = 0;
-        if ($kembalinya_date->greaterThan($kembali_date)) {
-            $hari_telat = $kembalinya_date->diffInDays($kembali_date);
+        // Hitung denda hanya jika melewati batas tanggal
+        $denda = null;
+        if ($tanggal_kembali > $tanggal_batas) {
+            $hari_telat = \Carbon\Carbon::parse($tanggal_kembali)->diffInDays($tanggal_batas);
             $denda = $hari_telat * 2000;
         }
 
@@ -186,7 +195,7 @@ class PeminjamController extends Controller
             'foto_bukti' => $imageName,
         ]);
 
-        // Tambah kembali stok barang
+        // Tambah stok barang
         $barang = Barang::findOrFail($peminjaman->barang_id);
         $barang->increment('stok');
 

@@ -6,8 +6,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PeminjamController;
 use App\Http\Controllers\Peminjam1Controller;
+use App\Http\Controllers\GuruController;
+use App\Http\Controllers\SiswaController;
 
-// Redirect ke halaman login jika membuka root domain
 Route::get('/', function () {
     return redirect('/login');
 });
@@ -37,8 +38,13 @@ Route::resource('scan', ScanController::class);
 Route::get('/scan/check/{kode}', [ScanController::class, 'check']);
 Route::get('/crdpeminjam/showbrng/{barang}', [ScanController::class, 'show']);
 Route::resource('peminjam', PeminjamController::class);
+}); 
 Route::post('/crdpeminjam/store', [PeminjamController::class, 'store']);
-});
+Route::resource('guru', GuruController::class);
+Route::resource('siswa', SiswaController::class);
+
+
+
 
 Route::middleware('auth:web')->group(function () {
     Route::get('/barangsiswa', [BarangController::class, 'indexs']);
@@ -48,7 +54,6 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/crdpeminjams/showbrng/{barang}', [Scan1Controller::class, 'show']); 
     Route::post('/crdpeminjams/store', [Peminjam1Controller::class, 'store']);
     Route::get('/pengembalians', [Peminjam1Controller::class, 'pengembalian']);
-
 });
 
 

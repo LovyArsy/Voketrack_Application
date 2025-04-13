@@ -17,7 +17,8 @@ class GuruSeeder extends Seeder
         guru::create([
             'name' => 'Dennim',
             'username' => '123456',
-            'password' => Hash::make('123456'), // Gunakan Hash::make()
+            'password' => Hash::make('123456'),
+            'gambar' => 'guru1.png'
         ]);
     }
 }
