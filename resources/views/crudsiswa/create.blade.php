@@ -12,13 +12,14 @@
         .card {
             max-width: 600px;
             margin: 0 auto;
-            background: white;
+            background: #fff;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         .card h2 {
             margin-bottom: 20px;
+            color: #2c3e50;
         }
         label {
             display: block;
@@ -37,12 +38,13 @@
         input[type="submit"],
         .btn-back {
             background-color: #3498db;
-            color: white;
+            color: #fff;
             border: none;
             padding: 10px 18px;
             cursor: pointer;
             border-radius: 8px;
             text-decoration: none;
+            font-weight: bold;
         }
         input[type="submit"]:hover,
         .btn-back:hover {
@@ -61,6 +63,7 @@
     </style>
 </head>
 <body>
+    @include('navigasi.navbar')
 
     <div class="card">
         <a href="{{ route('guru.index') }}" class="btn-back">← Kembali ke Daftar User</a>
@@ -99,6 +102,5 @@
             <input type="submit" value="Simpan">
         </form>
     </div>
-
 </body>
 </html>

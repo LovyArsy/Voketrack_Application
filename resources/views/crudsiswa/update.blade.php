@@ -61,6 +61,7 @@
     </style>
 </head>
 <body>
+    @include('navigasi.navbar')
 
     <div class="card">
         <a href="{{ route('guru.index') }}" class="btn-back">← Kembali ke Daftar User</a>

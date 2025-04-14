@@ -82,7 +82,9 @@
         <div class="content-area">
             <div class="container-custom">
                 <h2 class="text-black fw-bold">Daftar Barang</h2>
-
+<div class="text-center mb-4">
+                    <a href="/scans" class="btn btn-primary">Pinjam Barang</a>
+                </div>
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>

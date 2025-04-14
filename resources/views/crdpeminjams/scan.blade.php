@@ -125,7 +125,7 @@ body {
 
     <script>
         function onScanSuccess(decodedText) {
-            window.location.href = `/scan/check/${decodedText}`;
+            window.location.href = `/scans/check/${decodedText}`;
         }
 
         const html5QrCode = new Html5Qrcode("reader");

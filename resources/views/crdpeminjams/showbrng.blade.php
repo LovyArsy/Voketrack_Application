@@ -1,5 +1,5 @@
 
-@include('navigasi.navbars')
+@include('navigasi.navbar')
 
 <!DOCTYPE html>
 <html lang="id">

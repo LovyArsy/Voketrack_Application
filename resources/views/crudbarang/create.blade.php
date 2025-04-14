@@ -14,7 +14,7 @@
         }
         .container {
             max-width: 600px;
-            margin-top: 100px;
+            margin-top: 50px;
         }
         .card {
             border-radius: 10px;
@@ -33,7 +33,7 @@
             padding: 20px;
         }
         .alert {
-            margin-top: 10px;
+            margin-top: 1px;
         }
     </style>
 </head>
