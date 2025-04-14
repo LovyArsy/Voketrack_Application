@@ -1,14 +1,22 @@
 @include('navigasi.navbar')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <title>Data Guru & Siswa</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            padding: 20px;
+            padding: 0;
+            margin-top: 8%;
+            box-sizing: border-box;
             background-color: #f7f7f7;
+            /* display: flex; */
+            height: 100vh;
+            /* width: 100% */
         }
 
         h1 {
@@ -28,6 +36,7 @@
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             width: 260px;
+            align-items: center;
             text-align: center;
             padding: 20px;
             position: relative;
@@ -85,6 +94,14 @@
 
         .delete {
             background-color: #f44336;
+            display: inline-block;
+            margin: 5px 8px;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 13px;
+            text-decoration: none;
+            color: white;
+            border: none;
         }
     </style>
 </head>
@@ -113,7 +130,7 @@
                         <button type="submit" class="delete">
                             Hapus
                         </button>
-                    </form>     
+                    </form>
                 </div>
             </div>
         @endforeach

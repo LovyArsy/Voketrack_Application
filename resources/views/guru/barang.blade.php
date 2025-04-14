@@ -11,6 +11,7 @@
         body {
             background-size: cover;
             height: 100vh;
+            padding: 25px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -25,7 +26,8 @@
             backdrop-filter: blur(20px);
             box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
             width: 100%;
-            max-width: 900px;
+            /* margin: 5% */
+            /* max-width: 1200px; */
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
@@ -33,6 +35,8 @@
             background: rgba(0, 0, 0, 0.4);
             border-radius: 10px;
             overflow: hidden;
+            align-items: center;
+            justify-content: center;
         }
 
         .table th {
@@ -42,7 +46,12 @@
 
         .table td {
             color: #000000;
-            text-align: center;
+            /* background-color: #00aaff; */
+            /* display: flex; */
+            align-items: center;
+            justify-content: center;
+            vertical-align: middle;
+            /* text-align: center; */
         }
 
         .btn-custom {
@@ -59,6 +68,7 @@
         .btn-custom:hover {
             background: linear-gradient(45deg, #0088cc, #006699);
             transform: scale(1.05);
+            color: white;
         }
 
         @media (max-width: 768px) {
@@ -71,9 +81,11 @@
 </head>
 <body>
     <div class="container-custom">
-        <h2 class="text-black">Daftar Barang</h2>
-        <a href="{{ route('barang.create') }}" class="btn btn-custom mb-3">Tambah Barang</a>
-        
+        <h2 class="text-black" style="font-weight: 700;">Daftar Barang</h2>
+        <div class="w-full text-end">
+            <a href="{{ route('barang.create') }}" class="btn btn-custom mb-3">Tambah Barang</a>
+        </div>
+
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>

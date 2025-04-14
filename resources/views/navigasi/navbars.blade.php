@@ -49,13 +49,13 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top p-3">
         <div class="container-fluid px-3">
             <a class="navbar-brand text-white d-flex align-items-center" href="#">
                 <img src="{{ asset('upload/Logo.jpg') }}" alt="Logo" width="40" height="40">
                 <span><b>VokeTrack</b></span>
             </a>
-            
+
             <!-- Ikon Logout untuk tampilan mobile -->
             <a href="#" class="btn btn-logout d-lg-none">
                 <i class="fas fa-sign-out-alt"></i>
@@ -75,7 +75,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/pengembalians">Pengembalian</a>
                     </li>
-                    
+
                 </ul>
             </div>
 
@@ -85,7 +85,7 @@
             </form>
 
             <a href="#" class="btn btn-logout d-none d-lg-block" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="fas fa-sign-out-alt"></i>
+                <i class="fas fa-sign-out-alt fs-4 text-danger"></i>
             </a>
         </div>
     </nav>

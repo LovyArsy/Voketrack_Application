@@ -21,7 +21,10 @@
         }
 
         .scan-container {
-            background: rgba(255, 255, 255, 0.1);
+            margin-top: 5%;
+            /* background: rgba(255, 255, 255, 0.1); */
+            background-color: white;
+            color: #5b97ff;
             padding: 20px;
             border-radius: 10px;
             backdrop-filter: blur(10px);

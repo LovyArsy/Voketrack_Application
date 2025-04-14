@@ -65,7 +65,7 @@
 <body>
     <div class="container-custom">
         <h2 class="text-black text-center">Daftar Barang Dikembalikan</h2>
-        
+
         <div class="table-responsive">
             <table class="table table-bordered table-striped text-center">
                 <thead class="table-dark">

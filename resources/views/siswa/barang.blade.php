@@ -11,6 +11,7 @@
         body {
             background-size: cover;
             height: 100vh;
+            padding: 25px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -25,7 +26,7 @@
             backdrop-filter: blur(20px);
             box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
             width: 100%;
-            max-width: 900px;
+            /* max-width: 900px; */
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
@@ -43,6 +44,8 @@
         .table td {
             color: #000000;
             text-align: center;
+            font-size: 18px;
+            vertical-align: middle;
         }
 
         .btn-custom {
@@ -72,7 +75,7 @@
 <body>
     <div class="container-custom">
         <h2 class="text-black">Daftar Barang</h2>
-        
+
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>

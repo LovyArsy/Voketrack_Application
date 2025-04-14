@@ -17,10 +17,12 @@
         }
 
         .login-container {
-            background: rgba(255, 255, 255, 0.1);
+            /* background: rgba(255, 255, 255, 0.1); */
+            background-color: white;
+            color: #006699;
             padding: 30px;
             border-radius: 15px;
-            text-align: center;
+            /* text-align: center; */
             backdrop-filter: blur(20px);
             box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
             width: 100%;
@@ -28,18 +30,21 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
+
+
         .form-control {
             background: rgba(255, 255, 255, 0.2);
             border: none;
             border-radius: 8px;
             padding: 12px;
-            color: white !important;
+            color: #006699 !important;
             outline: none;
             transition: all 0.3s ease-in-out;
         }
 
         .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.7);
+            /* color: rgba(255, 255, 255, 0.7); */
+            color: #006699;
         }
 
         .form-control:focus {
@@ -62,11 +67,12 @@
 
         .btn-login:hover {
             background: linear-gradient(45deg, #0088cc, #006699);
+            color: white;
             transform: scale(1.05);
         }
 
         label {
-            color: white;
+            color:#006699;
             font-weight: bold;
         }
 
@@ -84,16 +90,18 @@
         @media (max-width: 480px) {
             .login-container {
                 padding: 20px;
-                max-width: 90%; 
+                max-width: 90%;
             }
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <img src="{{ asset('upload/Logo.jpg') }}" alt="Logo" width="80" class="mb-3">
-        <h3 class="text-white"><b>VokeTrack Application</b></h3>
-        <p class="text-white">Kelola dan lacak barang bengkel dengan mudah. Silakan login untuk memulai.</p>
+        <div class="text-center">
+            <img src="{{ asset('upload/Logo.jpg') }}" alt="Logo" width="80" class="mb-3">
+            <h3 class=""><b>VokeTrack Application</b></h3>
+            <p class="">Kelola dan lacak barang bengkel dengan mudah. Silakan login untuk memulai.</p>
+        </div>
 
         @if(session('loginerror'))
             <div class="alert alert-danger">
@@ -110,11 +118,11 @@
             @csrf
             <div class="mb-3">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username" required placeholder="Masukkan username">
+                <input type="text" class="form-control border border-2" id="username" name="username" required placeholder="Masukkan username">
             </div>
             <div class="mb-3">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required placeholder="Masukkan password">
+                <input type="password" class="form-control border text-black border-2" id="password" name="password" required placeholder="Masukkan password">
             </div>
             <button type="submit" class="btn btn-login">Login</button>
         </form>

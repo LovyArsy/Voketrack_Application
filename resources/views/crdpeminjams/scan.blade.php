@@ -18,10 +18,13 @@
             align-items: center;
             color: white;
             text-align: center;
+            /* margin-top: 5%; */
         }
 
         .scan-container {
-            background: rgba(255, 255, 255, 0.1);
+            /* background: rgba(255, 255, 255, 0.1); */
+            background-color: white;
+            color: #5b97ff;
             padding: 20px;
             border-radius: 10px;
             backdrop-filter: blur(10px);
@@ -48,7 +51,7 @@
         }
     </style>
 </head>
-<body>
+<body style="@if(session('error')) margin-top: 3%; @endif">
 
 <div class="scan-container">
     <h2>Scan QR Code</h2>
