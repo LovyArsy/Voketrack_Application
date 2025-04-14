@@ -14,11 +14,11 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
-        
+
 
         $credentials = $request->validate([
             'username' => 'required',
-            'password' => 'required', 
+            'password' => 'required',
         ]);
 
         Auth::logout();
@@ -31,7 +31,9 @@ class LoginController extends Controller
             $guru = Auth::guard('guru')->user();
             session([
                 'peminjam_id' => $guru->id,
-                'peminjam_type' => 'App\Models\Guru'
+                'peminjam_type' => 'App\Models\Guru',
+                'guru_nama' => $guru->name,
+                'guru_foto' => $guru->gambar,
             ]);
             session()->save(); // Pastikan session tersimpan
 
@@ -46,7 +48,9 @@ class LoginController extends Controller
             $siswa = Auth::guard('web')->user();
             session([
                 'peminjam_id' => $siswa->id,
-                'peminjam_type' => 'App\Models\Siswa'
+                'peminjam_type' => 'App\Models\Siswa',
+                'siswa_nama' => $siswa->name,
+                'siswa_gambar' => $siswa->gambar
             ]);
             session()->save(); // Pastikan session tersimpan
 

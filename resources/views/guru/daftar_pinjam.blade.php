@@ -1,6 +1,3 @@
-
-@include('navigasi.navbar') <!-- Navbar tetap di atas -->
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -10,18 +7,39 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
+            margin: 0;
             background-size: cover;
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
             height: 100vh;
-            backdrop-filter: blur(5px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 998;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar-top {
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 999;
         }
 
         .container-custom {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding-top: 70px; /* Hindari navbar tertutup */
+            flex: 1;
+            padding: 25px;
+            padding-top: 100px;
         }
 
         .table {
@@ -53,49 +71,69 @@
             transition: all 0.3s ease-in-out;
         }
 
-        .btn-primary:hover, 
-        .btn-danger:hover, 
+        .btn-primary:hover,
+        .btn-danger:hover,
         .btn-info:hover {
             transform: scale(1.05);
         }
 
         @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
             .container-custom {
                 padding: 20px;
-                max-width: 95%;
+                padding-top: 80px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container-custom">
-        <h2 class="text-black text-center">Daftar Alat yang Sedang Dipinjam</h2>
-        
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped text-center">
-                <thead class="table-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>ID</th>
-                        <th>Peminjam</th>
-                        <th>Barang</th>
-                        <th>Tanggal Pinjam</th>
-                        <th>Maximal Pengembalian</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($peminjams as $index => $peminjam)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $peminjam->id }}</td>
-                        <td>{{ $peminjam->peminjam->name }}</td>
-                        <td>{{ $peminjam->barang->nama }}</td>
-                        <td>{{ $peminjam->pinjam_date }}</td>
-                        <td>{{ $peminjam->kembali_date }}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+    {{-- Sidebar --}}
+    @include('navigasi.sidebar')
+
+    <div class="main-content">
+        {{-- Navbar --}}
+        <div class="navbar-top">
+            @include('navigasi.navbar')
+        </div>
+
+        {{-- Konten Utama --}}
+        <div class="container-custom">
+            <h2 class="text-black text-center">Daftar Alat yang Sedang Dipinjam</h2>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped text-center">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>ID</th>
+                            <th>Peminjam</th>
+                            <th>Barang</th>
+                            <th>Tanggal Pinjam</th>
+                            <th>Maximal Pengembalian</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($peminjams as $index => $peminjam)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $peminjam->id }}</td>
+                            <td>{{ $peminjam->peminjam->name }}</td>
+                            <td>{{ $peminjam->barang->nama }}</td>
+                            <td>{{ $peminjam->pinjam_date }}</td>
+                            <td>{{ $peminjam->kembali_date }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>

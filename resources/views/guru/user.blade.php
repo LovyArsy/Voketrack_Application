@@ -1,22 +1,45 @@
-@include('navigasi.navbar')
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
+    <title>Data Guru & Siswa</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <title>Data Guru & Siswa</title>
+
     <style>
         body {
-            font-family: Arial, sans-serif;
-            padding: 0;
-            margin-top: 8%;
-            box-sizing: border-box;
+            margin: 0;
             background-color: #f7f7f7;
-            /* display: flex; */
+            min-height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 250px;
             height: 100vh;
-            /* width: 100% */
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 998;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar-top {
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .container-content {
+            /* background-color: #4CAF50; */
+            padding: 20px 30px 30px 30px;
         }
 
         h1 {
@@ -39,7 +62,6 @@
             align-items: center;
             text-align: center;
             padding: 20px;
-            position: relative;
         }
 
         .card img {
@@ -78,7 +100,8 @@
             background-color: #2196F3;
         }
 
-        .actions a {
+        .actions a,
+        .actions button {
             display: inline-block;
             margin: 5px 8px;
             padding: 5px 12px;
@@ -94,66 +117,83 @@
 
         .delete {
             background-color: #f44336;
-            display: inline-block;
-            margin: 5px 8px;
-            padding: 5px 12px;
-            border-radius: 5px;
-            font-size: 13px;
-            text-decoration: none;
-            color: white;
             border: none;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .container-content {
+                padding-top: 80px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <h1>Data Guru & Siswa</h1>
-    <div style="text-align: center; margin-bottom: 30px;">
-    <a href="{{ route('guru.create') }}" style="padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 8px; margin-right: 10px;">+ Tambah Guru</a>
-    <a href="{{ route('siswa.create') }}" style="padding: 10px 20px; background-color: #2196F3; color: white; text-decoration: none; border-radius: 8px;">+ Tambah Siswa</a>
-</div>
+    {{-- Sidebar --}}
+    @include('navigasi.sidebar')
 
+    <div class="main-content">
+        {{-- Navbar --}}
+        <div class="navbar-top">
+            @include('navigasi.navbar')
+        </div>
 
-    <div class="container">
-        {{-- Data Guru --}}
-        @foreach ($gurus as $guru)
-            <div class="card">
-                <img src="{{ asset('profil/' . $guru->gambar) }}" alt="Foto Guru">
-                <div class="title">{{ $guru->name }}</div>
-                <div class="sub">Username: {{ $guru->username }}</div>
-                <span class="tag guru">Guru</span>
-                <div class="actions">
-                    <a href="{{ route('guru.edit', $guru->id) }}" class="edit">Edit</a>
-                    <form action="{{ route('guru.destroy', $guru->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin hapus data siswa ini?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="delete">
-                            Hapus
-                        </button>
-                    </form>
-                </div>
+        {{-- Konten --}}
+        <div class="container-content">
+            <h1 class="p-3">Data Guru & Siswa</h1>
+
+            <div style="text-align: center; margin-bottom: 30px;">
+                <a href="{{ route('guru.create') }}" style="padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 8px; margin-right: 10px;">+ Tambah Guru</a>
+                <a href="{{ route('siswa.create') }}" style="padding: 10px 20px; background-color: #2196F3; color: white; text-decoration: none; border-radius: 8px;">+ Tambah Siswa</a>
             </div>
-        @endforeach
 
-        {{-- Data Siswa --}}
-        @foreach ($siswas as $siswa)
-            <div class="card">
-                <img src="{{ asset('profil/' . $siswa->gambar) }}" alt="Foto Siswa">
-                <div class="title">{{ $siswa->name }}</div>
-                <div class="sub">Username: {{ $siswa->username }}</div>
-                <span class="tag siswa">Siswa</span>
-                <div class="actions">
-                    <a href="{{ route('siswa.edit', $siswa->id) }}" class="edit">Edit</a>
-                    <form action="{{ route('siswa.destroy', $siswa->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin hapus data siswa ini?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="delete">
-                            Hapus
-                        </button>
-                    </form>
-                </div>
+            <div class="container">
+                {{-- Data Guru --}}
+                @foreach ($gurus as $guru)
+                    <div class="card">
+                        <img src="{{ asset('profil/' . $guru->gambar) }}" alt="Foto Guru">
+                        <div class="title">{{ $guru->name }}</div>
+                        <div class="sub">Username: {{ $guru->username }}</div>
+                        <span class="tag guru">Guru</span>
+                        <div class="actions">
+                            <a href="{{ route('guru.edit', $guru->id) }}" class="edit">Edit</a>
+                            <form action="{{ route('guru.destroy', $guru->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin hapus data guru ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="delete">Hapus</button>
+                            </form>
+                        </div>
+                    </div>
+                @endforeach
+
+                {{-- Data Siswa --}}
+                @foreach ($siswas as $siswa)
+                    <div class="card">
+                        <img src="{{ asset('profil/' . $siswa->gambar) }}" alt="Foto Siswa">
+                        <div class="title">{{ $siswa->name }}</div>
+                        <div class="sub">Username: {{ $siswa->username }}</div>
+                        <span class="tag siswa">Siswa</span>
+                        <div class="actions">
+                            <a href="{{ route('siswa.edit', $siswa->id) }}" class="edit">Edit</a>
+                            <form action="{{ route('siswa.destroy', $siswa->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin hapus data siswa ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="delete">Hapus</button>
+                            </form>
+                        </div>
+                    </div>
+                @endforeach
             </div>
-        @endforeach
+        </div>
     </div>
 
 </body>

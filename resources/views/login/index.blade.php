@@ -44,7 +44,7 @@
 
         .form-control::placeholder {
             /* color: rgba(255, 255, 255, 0.7); */
-            color: #006699;
+            color: black;
         }
 
         .form-control:focus {

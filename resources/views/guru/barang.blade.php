@@ -1,5 +1,3 @@
-@include('navigasi.navbar')
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -9,12 +7,24 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
-            background-size: cover;
-            height: 100vh;
-            padding: 25px;
+            margin: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .main-content {
+            /* margin-left: 250px; sesuai sidebar */
+            width: calc(100% - 250px);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
             backdrop-filter: blur(5px);
         }
 
@@ -26,17 +36,7 @@
             backdrop-filter: blur(20px);
             box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
             width: 100%;
-            /* margin: 5% */
-            /* max-width: 1200px; */
             border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .table {
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 10px;
-            overflow: hidden;
-            align-items: center;
-            justify-content: center;
         }
 
         .table th {
@@ -45,13 +45,8 @@
         }
 
         .table td {
-            color: #000000;
-            /* background-color: #00aaff; */
-            /* display: flex; */
-            align-items: center;
-            justify-content: center;
+            color: #000;
             vertical-align: middle;
-            /* text-align: center; */
         }
 
         .btn-custom {
@@ -61,7 +56,6 @@
             border-radius: 20px;
             color: white;
             font-weight: bold;
-            cursor: pointer;
             transition: all 0.3s ease-in-out;
         }
 
@@ -72,54 +66,70 @@
         }
 
         @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
             .container-custom {
                 padding: 20px;
-                max-width: 95%;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container-custom">
-        <h2 class="text-black" style="font-weight: 700;">Daftar Barang</h2>
-        <div class="w-full text-end">
-            <a href="{{ route('barang.create') }}" class="btn btn-custom mb-3">Tambah Barang</a>
-        </div>
 
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Gambar</th>
-                    <th>Kode</th>
-                    <th>Nama Barang</th>
-                    <th>Stok</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($barangs as $item)
-                <tr>
-                    <td>{{ $item->id }}</td>
-                    <td>
-                        <img src="{{ asset('barangs/' . $item->image) }}" width="80" class="rounded" alt="Barang Image">
-                    </td>
-                    <td>{{ $item->kode }}</td>
-                    <td>{{ $item->nama }}</td>
-                    <td>{{ $item->stok }}</td>
-                    <td>
-                        <a href="{{ route('barang.show', $item->id) }}" class="btn btn-info btn-sm">Detail</a>
-                        <a href="{{ route('barang.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="{{ route('barang.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+    {{-- Sidebar --}}
+    @include('navigasi.sidebar')
+
+    <div class="main-content">
+        {{-- Navbar hanya foto profil --}}
+        @include('navigasi.navbar')
+
+        <div class="content-area">
+            <div class="container-custom">
+                <h2 class="text-black fw-bold">Daftar Barang</h2>
+                <div class="w-100 text-end">
+                    <a href="{{ route('barang.create') }}" class="btn text-white btn-custom mb-3">Tambah Barang</a>
+                </div>
+
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Gambar</th>
+                            <th>Kode</th>
+                            <th>Nama Barang</th>
+                            <th>Stok</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($barangs as $item)
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            <td>
+                                <img src="{{ asset('barangs/' . $item->image) }}" width="80" class="rounded" alt="Barang Image">
+                            </td>
+                            <td>{{ $item->kode }}</td>
+                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->stok }}</td>
+                            <td>
+                                <a href="{{ route('barang.show', $item->id) }}" class="btn btn-info btn-sm">Detail</a>
+                                <a href="{{ route('barang.edit', $item->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="{{ route('barang.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+
 </body>
 </html>

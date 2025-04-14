@@ -19,6 +19,7 @@ class BarangController extends Controller
         $barangs = Barang::all();
         return view('guru.barang', compact('barangs'));
     }
+    
     public function indexs()
     {
         $barangs = Barang::all();
@@ -105,13 +106,13 @@ class BarangController extends Controller
         // Hapus gambar lama jika ada
         if ($barang->image && file_exists(public_path('barangs/' . $barang->image))) {
             unlink(public_path('barangs/' . $barang->image));
-        }   
+        }
 
         // Simpan gambar baru
         $image = $request->file('image');
         $imageName = $image->hashName();
         $image->move(public_path('barangs'), $imageName);
-        
+
         // Update data barang dengan gambar baru
         $barang->update([
             'nama' => $request->nama,
@@ -142,6 +143,6 @@ class BarangController extends Controller
     }
 
 
-   
-   
+
+
 }

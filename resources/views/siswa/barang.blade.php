@@ -1,5 +1,3 @@
-@include('navigasi.navbars')
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -9,12 +7,24 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
-            background-size: cover;
-            height: 100vh;
-            padding: 25px;
+            margin: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .main-content {
+            width: calc(100% - 250px);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            /* margin-left: 250px; */
+        }
+
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
             backdrop-filter: blur(5px);
         }
 
@@ -26,7 +36,6 @@
             backdrop-filter: blur(20px);
             box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
             width: 100%;
-            /* max-width: 900px; */
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
@@ -42,64 +51,66 @@
         }
 
         .table td {
-            color: #000000;
+            color: #000;
+            vertical-align: middle;
             text-align: center;
             font-size: 18px;
-            vertical-align: middle;
-        }
-
-        .btn-custom {
-            background: linear-gradient(45deg, #00aaff, #0088cc);
-            border: none;
-            padding: 10px 15px;
-            border-radius: 20px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .btn-custom:hover {
-            background: linear-gradient(45deg, #0088cc, #006699);
-            transform: scale(1.05);
         }
 
         @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
             .container-custom {
                 padding: 20px;
-                max-width: 95%;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container-custom">
-        <h2 class="text-black">Daftar Barang</h2>
 
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Gambar</th>
-                    <th>Kode</th>
-                    <th>Nama Barang</th>
-                    <th>Stok</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($barangs as $item)
-                <tr>
-                    <td>{{ $item->id }}</td>
-                    <td>
-                        <img src="{{ asset('barangs/' . $item->image) }}" width="80" class="rounded" alt="Barang Image">
-                    </td>
-                    <td>{{ $item->kode }}</td>
-                    <td>{{ $item->nama }}</td>
-                    <td>{{ $item->stok }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+    {{-- Sidebar --}}
+    @include('navigasi.sidebars')
+
+    <div class="main-content">
+
+        {{-- Navbar --}}
+        @include('navigasi.navbar')
+
+        <div class="content-area">
+            <div class="container-custom">
+                <h2 class="text-black fw-bold">Daftar Barang</h2>
+
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Gambar</th>
+                            <th>Kode</th>
+                            <th>Nama Barang</th>
+                            <th>Stok</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($barangs as $item)
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            <td>
+                                <img src="{{ asset('barangs/' . $item->image) }}" width="80" class="rounded" alt="Barang Image">
+                            </td>
+                            <td>{{ $item->kode }}</td>
+                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->stok }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
     </div>
+
 </body>
 </html>
