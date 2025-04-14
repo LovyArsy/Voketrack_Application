@@ -6,94 +6,91 @@
     <title>Login - VokeTrack</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
-        body {
-            background: url('{{ asset('upload/Background.jpg') }}') no-repeat center center fixed;
-            background-size: cover;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(5px);
-        }
+    body {
+        background: url('{{ asset('upload/Background.jpg') }}') no-repeat center center fixed;
+        background-size: cover;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(5px);
+        color: white; /* Menambahkan warna font putih di seluruh halaman */
+    }
 
+    .login-container {
+        background: rgba(255, 255, 255, 0.1);
+        color: white; /* Pastikan teks di dalam container login juga putih */
+        padding: 30px;
+        border-radius: 15px;
+        backdrop-filter: blur(20px);
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 400px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .form-control {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-radius: 8px;
+        padding: 12px;
+        color: white !important; /* Menyesuaikan warna teks di input agar putih */
+        outline: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .form-control::placeholder {
+        color: white; /* Mengubah warna placeholder menjadi putih */
+    }
+
+    .form-control:focus {
+        border: 1px solid #00aaff;
+        box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-login {
+        background: linear-gradient(45deg, #00aaff, #0088cc);
+        border: none;
+        padding: 12px;
+        width: 100%;
+        border-radius: 30px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-login:hover {
+        background: linear-gradient(45deg, #0088cc, #006699);
+        color: white;
+        transform: scale(1.05);
+    }
+
+    label {
+        color: white; /* Mengubah warna label menjadi putih */
+        font-weight: bold;
+    }
+
+    .alert {
+        padding: 10px;
+        border-radius: 5px;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
         .login-container {
-            /* background: rgba(255, 255, 255, 0.1); */
-            background-color: white;
-            color: #006699;
-            padding: 30px;
-            border-radius: 15px;
-            /* text-align: center; */
-            backdrop-filter: blur(20px);
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 400px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            max-width: 90%;
         }
+    }
+</style>
 
-
-
-        .form-control {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            border-radius: 8px;
-            padding: 12px;
-            color: #006699 !important;
-            outline: none;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .form-control::placeholder {
-            /* color: rgba(255, 255, 255, 0.7); */
-            color: #006699;
-        }
-
-        .form-control:focus {
-            border: 1px solid #00aaff;
-            box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .btn-login {
-            background: linear-gradient(45deg, #00aaff, #0088cc);
-            border: none;
-            padding: 12px;
-            width: 100%;
-            border-radius: 30px;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .btn-login:hover {
-            background: linear-gradient(45deg, #0088cc, #006699);
-            color: white;
-            transform: scale(1.05);
-        }
-
-        label {
-            color:#006699;
-            font-weight: bold;
-        }
-
-        .alert {
-            padding: 10px;
-            border-radius: 5px;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 480px) {
-            .login-container {
-                padding: 20px;
-                max-width: 90%;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="login-container">
