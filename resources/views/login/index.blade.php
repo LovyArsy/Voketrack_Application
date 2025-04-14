@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -125,5 +125,102 @@
         </form>
     </div>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+</body>
+</html>
+
+ --}}
+ <!-- resources/views/auth/login.blade.php -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login | VokeTrack</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="VokeTrack adalah sistem pelacakan barang berbasis web.">
+  <meta name="keywords" content="VokeTrack, Dashboard, Admin, Pelacakan Barang, Laravel, Bootstrap">
+  <meta name="author" content="VokeTrack Team">
+
+  <!-- Favicon -->
+  <link rel="icon" href="{{ asset('upload/Logo.jpg') }}" type="image/x-icon">
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap">
+  <!-- Icons -->
+  <link rel="stylesheet" href="../assets/fonts/tabler-icons.min.css">
+  <link rel="stylesheet" href="../assets/fonts/feather.css">
+  <link rel="stylesheet" href="../assets/fonts/fontawesome.css">
+  <link rel="stylesheet" href="../assets/fonts/material.css">
+  <!-- Styles -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/style-preset.css">
+</head>
+
+<body>
+  <div class="loader-bg">
+    <div class="loader-track">
+      <div class="loader-fill"></div>
+    </div>
+  </div>
+
+  <div class="auth-main">
+    <div class="auth-wrapper v3">
+      <div class="auth-form">
+        <div class="auth-header"></div>
+        <div class="card my-5">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-end mb-4">
+              <h3 class="mb-0"><b>Login</b></h3>
+            </div>
+
+            <!-- FORM LOGIN -->
+            <form method="POST" action="{{ route('login') }}">
+              @csrf
+              <div class="form-group mb-3">
+                <label class="form-label">Username</label>
+                <input type="text" name="username" class="form-control" placeholder="Masukkan username" required>
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Masukkan password" required>
+              </div>
+              
+              <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-primary">Login</button>
+              </div>
+            </form>
+            <!-- END FORM -->
+
+          </div>
+        </div>
+        <div class="auth-footer row">
+          <div class="col my-1">
+            <p class="m-0">© 2025 <a href="#">VokeTrack</a></p>
+          </div>
+          <div class="col-auto my-1">
+            <ul class="list-inline footer-link mb-0">
+              <li class="list-inline-item"><a href="#">Beranda</a></li>
+              <li class="list-inline-item"><a href="#">Kebijakan Privasi</a></li>
+              <li class="list-inline-item"><a href="#">Hubungi Kami</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../assets/js/plugins/popper.min.js"></script>
+  <script src="../assets/js/plugins/simplebar.min.js"></script>
+  <script src="../assets/js/plugins/bootstrap.min.js"></script>
+  <script src="../assets/js/fonts/custom-font.js"></script>
+  <script src="../assets/js/pcoded.js"></script>
+  <script src="../assets/js/plugins/feather.min.js"></script>
+  <script>
+    layout_change('light');
+    change_box_container('false');
+    layout_rtl_change('false');
+    preset_change("preset-1");
+    font_change("Public-Sans");
+  </script>
 </body>
 </html>

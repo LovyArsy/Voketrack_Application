@@ -1,86 +1,99 @@
-
 @include('navigasi.navbar')
 
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scan QR Code - VokeTrack</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <style>
-        body {
-            background: linear-gradient(135deg, #ffffff, #5b97ff);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Scan QR Code | VokeTrack</title>
+  <meta name="description" content="Scan QR Code barang dengan VokeTrack.">
+  <meta name="keywords" content="Scan QR, VokeTrack, Laravel, Tracking Barang">
+  <meta name="author" content="VokeTrack Team">
 
-        .scan-container {
-            margin-top: 5%;
-            /* background: rgba(255, 255, 255, 0.1); */
-            background-color: white;
-            color: #5b97ff;
-            padding: 20px;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 500px;
-        }
+  <!-- Favicon -->
+  <link rel="icon" href="{{ asset('upload/Logo.jpg') }}" type="image/x-icon">
 
-        #reader {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            overflow: hidden;
-        }
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap">
 
-        .alert {
-            margin-top: 10px;
-        }
+  <!-- Icons -->
+  <link rel="stylesheet" href="{{ asset('assets/fonts/tabler-icons.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/fonts/feather.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/fonts/material.css') }}">
 
-        @media (max-width: 768px) {
-            body {
-                padding: 20px;
-            }
-        }
-    </style>
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/style-preset.css') }}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffffff, #5b97ff);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Public Sans', sans-serif;
+    }
+
+    .scan-container {
+      background-color: white;
+      color: #2e4b9c;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    #reader {
+      width: 100%;
+      height: auto;
+      margin-top: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .alert {
+      margin-top: 15px;
+    }
+  </style>
 </head>
 <body>
 
-<div class="scan-container">
-    <h2>Scan QR Code</h2>
-    <p>Arahkan kamera ke QR Code untuk melakukan scan.</p>
+  <div class="scan-container">
+    <h3 class="mb-3"><b>Scan QR Code</b></h3>
+    <p class="text-muted">Arahkan kamera ke QR Code untuk melakukan scan.</p>
+
     <div id="reader"></div>
     <p id="result"></p>
 
     @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
+      <div class="alert alert-danger mt-3">
+        {{ session('error') }}
+      </div>
     @endif
-</div>
+  </div>
 
-<script>
+  <!-- Scripts -->
+  <script>
     function onScanSuccess(decodedText) {
-        window.location.href = `/scan/check/${decodedText}`;
+      window.location.href = `/scan/check/${decodedText}`;
     }
 
     const html5QrCode = new Html5Qrcode("reader");
     html5QrCode.start(
-        { facingMode: "environment" },
-        {
-            fps: 10,
-            qrbox: { width: 250, height: 250 }
-        },
-        onScanSuccess
+      { facingMode: "environment" },
+      {
+        fps: 10,
+        qrbox: { width: 250, height: 250 }
+      },
+      onScanSuccess
     );
-</script>
+  </script>
 
 </body>
 </html>
