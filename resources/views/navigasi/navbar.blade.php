@@ -18,6 +18,7 @@
             height: 45px;
             border-radius: 50%;
             object-fit: cover;
+            border: 2px solid #ddd;
         }
 
         .navbar-profile h5 {

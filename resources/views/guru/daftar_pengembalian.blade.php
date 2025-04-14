@@ -8,44 +8,34 @@
     <style>
         body {
             margin: 0;
-            background-size: cover;
-            min-height: 100vh;
             display: flex;
-        }
-
-        .sidebar {
-            width: 250px;
             height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 998;
+            font-family: Arial, sans-serif;
         }
 
         .main-content {
-            margin-left: 250px;
             width: calc(100% - 250px);
             display: flex;
             flex-direction: column;
+            height: 100vh;
         }
 
-        .navbar-top {
-            width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 999;
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+            backdrop-filter: blur(5px);
         }
 
         .container-custom {
-            flex: 1;
-            padding: 25px;
-            padding-top: 100px;
-        }
-
-        .table {
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .table th {
@@ -54,8 +44,8 @@
         }
 
         .table td {
-            color: #000000;
-            text-align: center;
+            color: #000;
+            vertical-align: middle;
         }
 
         .img-thumbnail {
@@ -73,10 +63,6 @@
         }
 
         @media (max-width: 768px) {
-            .sidebar {
-                display: none;
-            }
-
             .main-content {
                 margin-left: 0;
                 width: 100%;
@@ -84,7 +70,6 @@
 
             .container-custom {
                 padding: 20px;
-                padding-top: 80px;
             }
         }
     </style>
@@ -95,53 +80,53 @@
 
     <div class="main-content">
         {{-- Navbar --}}
-        <div class="navbar-top">
-            @include('navigasi.navbar')
-        </div>
+        @include('navigasi.navbar')
 
-        {{-- Konten Utama --}}
-        <div class="container-custom">
-            <h2 class="text-black text-center">Daftar Barang Dikembalikan</h2>
+        <div class="content-area">
+            <div class="container-custom">
+                <h2 class="text-black fw-bold">Daftar Barang Dikembalikan</h2>
 
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped text-center">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>#</th>
-                            <th>ID</th>
-                            <th>Nama Barang</th>
-                            <th>Peminjam</th>
-                            <th>Tanggal Pinjam</th>
-                            <th>Maximal Pengembalian</th>
-                            <th>Tanggal Dikembalikan</th>
-                            <th>Bukti Foto</th>
-                            <th>Denda</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($peminjams as $index => $peminjam)
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped text-center">
+                        <thead>
                             <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $peminjam->id }}</td>
-                                <td>{{ $peminjam->barang->nama }}</td>
-                                <td>{{ $peminjam->peminjam->name }}</td>
-                                <td>{{ $peminjam->pinjam_date }}</td>
-                                <td>{{ $peminjam->kembali_date }}</td>
-                                <td>{{ $peminjam->kembalinya_date }}</td>
-                                <td>
-                                    @if ($peminjam->foto_bukti)
-                                        <img src="{{ asset('bukti_pengembalian/' . $peminjam->foto_bukti) }}" alt="Bukti Pengembalian" class="img-thumbnail" width="100">
-                                    @else
-                                        <span class="no-photo">Belum ada foto</span>
-                                    @endif
-                                </td>
-                                <td>
-                                    {{ $peminjam->denda > 0 ? 'Rp ' . number_format($peminjam->denda, 0, ',', '.') : '-' }}
-                                </td>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>Nama Barang</th>
+                                <th>Peminjam</th>
+                                <th>Tanggal Pinjam</th>
+                                <th>Maximal Pengembalian</th>
+                                <th>Tanggal Dikembalikan</th>
+                                <th>Bukti Foto</th>
+                                <th>Denda</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($peminjams as $index => $peminjam)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $peminjam->id }}</td>
+                                    <td>{{ $peminjam->barang->nama }}</td>
+                                    <td>{{ $peminjam->peminjam->name }}</td>
+                                    <td>{{ $peminjam->pinjam_date }}</td>
+                                    <td>{{ $peminjam->kembali_date }}</td>
+                                    <td>{{ $peminjam->kembalinya_date }}</td>
+                                    <td>
+                                        @if ($peminjam->foto_bukti)
+                                            <img src="{{ asset('bukti_pengembalian/' . $peminjam->foto_bukti) }}" alt="Bukti Pengembalian" class="img-thumbnail" width="100">
+                                        @else
+                                            <span class="no-photo">Belum ada foto</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{ $peminjam->denda > 0 ? 'Rp ' . number_format($peminjam->denda, 0, ',', '.') : '-' }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>

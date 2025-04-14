@@ -83,8 +83,8 @@
 
         .content {
             flex-grow: 1;
-            padding: 30px;
-            background-color: #f5f7fa;
+            /* padding: 30px; */
+            /* background-color: #f5f7fa; */
         }
     </style>
 </head>

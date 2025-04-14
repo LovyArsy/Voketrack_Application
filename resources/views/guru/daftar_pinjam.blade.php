@@ -8,44 +8,34 @@
     <style>
         body {
             margin: 0;
-            background-size: cover;
-            min-height: 100vh;
             display: flex;
-        }
-
-        .sidebar {
-            width: 250px;
             height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 998;
+            font-family: Arial, sans-serif;
         }
 
         .main-content {
-            margin-left: 250px;
             width: calc(100% - 250px);
             display: flex;
             flex-direction: column;
+            height: 100vh;
         }
 
-        .navbar-top {
-            width: 100%;
-            position: sticky;
-            top: 0;
-            z-index: 999;
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 25px;
+            backdrop-filter: blur(5px);
         }
 
         .container-custom {
-            flex: 1;
-            padding: 25px;
-            padding-top: 100px;
-        }
-
-        .table {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .table th {
@@ -54,34 +44,11 @@
         }
 
         .table td {
-            color: #000000;
-            text-align: center;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 5px;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 6px 12px;
-            font-size: 14px;
-            border-radius: 5px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .btn-primary:hover,
-        .btn-danger:hover,
-        .btn-info:hover {
-            transform: scale(1.05);
+            color: #000;
+            vertical-align: middle;
         }
 
         @media (max-width: 768px) {
-            .sidebar {
-                display: none;
-            }
-
             .main-content {
                 margin-left: 0;
                 width: 100%;
@@ -89,50 +56,50 @@
 
             .container-custom {
                 padding: 20px;
-                padding-top: 80px;
             }
         }
     </style>
 </head>
 <body>
+
     {{-- Sidebar --}}
     @include('navigasi.sidebar')
 
     <div class="main-content">
         {{-- Navbar --}}
-        <div class="navbar-top">
-            @include('navigasi.navbar')
-        </div>
+        @include('navigasi.navbar')
 
-        {{-- Konten Utama --}}
-        <div class="container-custom">
-            <h2 class="text-black text-center">Daftar Alat yang Sedang Dipinjam</h2>
+        <div class="content-area">
+            <div class="container-custom">
+                <h2 class="text-black fw-bold">Daftar Alat yang Sedang Dipinjam</h2>
 
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped text-center">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>#</th>
-                            <th>ID</th>
-                            <th>Peminjam</th>
-                            <th>Barang</th>
-                            <th>Tanggal Pinjam</th>
-                            <th>Maximal Pengembalian</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($peminjams as $index => $peminjam)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $peminjam->id }}</td>
-                            <td>{{ $peminjam->peminjam->name }}</td>
-                            <td>{{ $peminjam->barang->nama }}</td>
-                            <td>{{ $peminjam->pinjam_date }}</td>
-                            <td>{{ $peminjam->kembali_date }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <div class="table-responsive mt-4">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>Peminjam</th>
+                                <th>Barang</th>
+                                <th>Tanggal Pinjam</th>
+                                <th>Maximal Pengembalian</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($peminjams as $index => $peminjam)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $peminjam->id }}</td>
+                                <td>{{ $peminjam->peminjam->name }}</td>
+                                <td>{{ $peminjam->barang->nama }}</td>
+                                <td>{{ $peminjam->pinjam_date }}</td>
+                                <td>{{ $peminjam->kembali_date }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>
