@@ -11,6 +11,8 @@
     <style>
         body {
             background-color: #f8f9fa;
+            
+            flex-direction: column;
         }
         .container {
             margin-top: 100px;

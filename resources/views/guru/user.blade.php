@@ -1,3 +1,5 @@
+{{-- @include('navigasi.navbar') --}}
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -15,13 +17,24 @@
         }
 
         .sidebar {
-            width: 250px;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 998;
-        }
+    width: 250px;
+    background-color: rgb(49, 172, 225);
+    /* box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh; /* Penuhi seluruh tinggi layar */
+    padding: 20px 15px;
+    overflow-y: auto;
+}
+
+.navbar {
+    margin-left: 250px;
+    z-index: 10;
+    /* box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); */
+    position: relative; /* Navbar bergerak turun sesuai konten */
+}
+
 
         .main-content {
             margin-left: 250px;
@@ -122,9 +135,11 @@
 
         @media (max-width: 768px) {
             .sidebar {
-                display: none;
-            }
-
+        width: 100%;
+        position: relative;
+        height: auto;
+        /* display: none; */
+    }
             .main-content {
                 margin-left: 0;
                 width: 100%;
@@ -132,6 +147,7 @@
 
             .container-content {
                 padding-top: 80px;
+                margin-top: 50%
             }
         }
     </style>
@@ -139,7 +155,10 @@
 <body>
 
     {{-- Sidebar --}}
-    @include('navigasi.sidebar')
+       {{-- <div class="sidebar"> --}}
+        @include('navigasi.sidebar')
+    {{-- </div> --}}
+
 
     <div class="main-content">
         {{-- Navbar --}}
@@ -195,6 +214,8 @@
             </div>
         </div>
     </div>
+
+    
 
 </body>
 </html>

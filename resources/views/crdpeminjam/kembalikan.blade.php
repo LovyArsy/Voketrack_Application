@@ -11,16 +11,18 @@
     <style>
         body {
             background-size: cover;
-            height: 100vh;
+            /* height: 100vh; */
             backdrop-filter: blur(5px);
+            flex-direction: column;
         }
 
         .container-custom {
-            min-height: 100vh;
+            /* min-height: 100vh; */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            margin-top: 50px;
         }
 
         .form-container {

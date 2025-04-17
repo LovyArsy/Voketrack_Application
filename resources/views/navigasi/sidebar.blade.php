@@ -23,6 +23,11 @@
             background-color: rgb(49, 172, 225);
             padding: 20px 15px;
             flex-shrink: 0;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        .sidebar.collapsed {
+            width: 80px;
         }
 
         .sidebar .logo {
@@ -32,11 +37,21 @@
             margin-bottom: 30px;
             display: flex;
             align-items: center;
+            white-space: nowrap;
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed .logo span {
+            display: none;
         }
 
         .sidebar .logo img {
             border-radius: 50%;
             margin-right: 10px;
+        }
+
+        .sidebar.collapsed .logo img {
+            margin-right: 0;
         }
 
         .sidebar .nav-link {
@@ -49,11 +64,18 @@
             display: flex;
             align-items: center;
             text-decoration: none;
+            white-space: nowrap;
         }
 
         .sidebar .nav-link i {
             margin-right: 10px;
             transition: transform 0.3s ease;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .sidebar.collapsed .nav-link span {
+            display: none;
         }
 
         .sidebar .nav-link:hover {
@@ -74,6 +96,8 @@
             font-weight: bold;
             transition: 0.3s;
             padding: 10px 15px;
+            width: 100%;
+            text-align: left;
         }
 
         .btn-logout:hover {
@@ -81,44 +105,132 @@
             transform: translateX(5px);
         }
 
+        .sidebar.collapsed .btn-logout span {
+            display: none;
+        }
+
         .content {
             flex-grow: 1;
-            /* padding: 30px; */
-            /* background-color: #f5f7fa; */
+            padding: 20px;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        /* Tombol hamburger untuk mobile */
+        .mobile-toggle {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1001;
+            background: rgb(49, 172, 225);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            padding: 10px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        /* Overlay saat sidebar aktif */
+        .overlay-active::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: -260px;
+                height: 100%;
+                z-index: 1000;
+                width: 250px;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            body {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .sidebar {
+                padding-left: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="sidebar">
+    <!-- Toggle Button for Mobile -->
+    <button class="mobile-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
         <div class="logo">
             <img src="{{ asset('upload/Logo.jpg') }}" alt="Logo" width="40" height="40">
-            VokeTrack
+            <span>VokeTrack</span>
         </div>
 
         <nav class="nav flex-column">
-            <a class="nav-link" href="/scan"><i class="fas fa-qrcode"></i> Scan</a>
-            <a class="nav-link" href="/barang"><i class="fas fa-boxes"></i> Daftar Barang</a>
-            <a class="nav-link" href="/peminjams"><i class="fas fa-hand-holding"></i> Peminjaman</a>
-            <a class="nav-link" href="/pengembalian"><i class="fas fa-undo-alt"></i> Pengembalian</a>
-            <a class="nav-link" href="/daftarpeminjaman"><i class="fas fa-clipboard-list"></i> Data Pinjam</a>
-            <a class="nav-link" href="/daftarpengembalian"><i class="fas fa-history"></i> Data Kembali</a>
-            <a class="nav-link" href="/guru"><i class="fas fa-user-cog"></i> Data Akun</a>
+            <a class="nav-link" href="/scan" title="Scan"><i class="fas fa-qrcode"></i><span>Scan</span></a>
+            <a class="nav-link" href="/barang" title="Daftar Barang"><i class="fas fa-boxes"></i><span>Daftar Barang</span></a>
+            <a class="nav-link" href="/peminjams" title="Peminjaman"><i class="fas fa-hand-holding"></i><span>Peminjaman</span></a>
+            <a class="nav-link" href="/pengembalian" title="Pengembalian"><i class="fas fa-undo-alt"></i><span>Pengembalian</span></a>
+            <a class="nav-link" href="/daftarpeminjaman" title="Data Pinjam"><i class="fas fa-clipboard-list"></i><span>Data Pinjam</span></a>
+            <a class="nav-link" href="/daftarpengembalian" title="Data Kembali"><i class="fas fa-history"></i><span>Data Kembali</span></a>
+            <a class="nav-link" href="/guru" title="Data Akun"><i class="fas fa-user-cog"></i><span>Data Akun</span></a>
 
             <form id="logout-form" action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button class="btn btn-logout mt-4" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="fas fa-sign-out-alt me-2"></i> Logout
+                    <i class="fas fa-sign-out-alt me-2"></i><span>Logout</span>
                 </button>
             </form>
         </nav>
     </div>
 
+    <!-- Main Content -->
     <div class="content">
-        <!-- Halaman utama di sini -->
         @yield('content')
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Toggle Script -->
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+            document.body.classList.toggle('overlay-active');
+        }
+    </script>
 </body>
 </html>

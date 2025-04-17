@@ -11,6 +11,8 @@
     <style>
         body {
             background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
         }
         .container {
             max-width: 600px;

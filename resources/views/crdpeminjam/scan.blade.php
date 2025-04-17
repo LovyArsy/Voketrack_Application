@@ -1,5 +1,5 @@
 @include('navigasi.navbar')
-@include('navigasi.sidebar')
+{{-- @include('navigasi.sidebar') --}}
 
 <!DOCTYPE html>
 <html lang="id">
@@ -83,6 +83,7 @@ body {
         width: 100%;
         position: relative;
         height: auto;
+        /* display: none; */
     }
 
     .navbar {

@@ -12,6 +12,8 @@
             font-family: 'Segoe UI', sans-serif;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
         }
 
         .main-content {

@@ -8,6 +8,8 @@
             font-family: Arial, sans-serif;
             background-color: #f4f6f9;
             padding: 40px;
+            display: flex;
+            flex-direction: column;
         }
         .card {
             max-width: 600px;
