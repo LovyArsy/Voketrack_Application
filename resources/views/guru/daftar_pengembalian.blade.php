@@ -110,9 +110,9 @@
                                     <td>{{ $peminjam->barang->nama }}</td>
                                     <td>{{ $peminjam->peminjam->name }}</td>
                                     <td>{{ $peminjam->jumlah }}</td>
-                                    <td>{{ $peminjam->pinjam_date }}</td>
-                                    <td>{{ $peminjam->kembali_date }}</td>
-                                    <td>{{ $peminjam->kembalinya_date }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($peminjam->pinjam_date)->format('d-m-Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($peminjam->kembali_date)->format('d-m-Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($peminjam->kembalinya_date)->format('d-m-Y') }}</td>
                                     <td>
                                         @if ($peminjam->foto_bukti)
                                             <img src="{{ asset('bukti_pengembalian/' . $peminjam->foto_bukti) }}" alt="Bukti Pengembalian" class="img-thumbnail" width="100">

@@ -116,8 +116,8 @@
                                 <td>{{ $peminjam->id }}</td>
                                 <td>{{ $peminjam->barang->nama }}</td>
                                 <td>{{ $peminjam->jumlah }}</td>
-                                <td>{{ $peminjam->pinjam_date }}</td>
-                                <td>{{ $peminjam->kembali_date }}</td>
+                                <td>{{ \Carbon\Carbon::parse($peminjam->pinjam_date)->format('d-m-Y') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($peminjam->kembali_date)->format('d-m-Y') }}</td>
                                 <td class="action-buttons">
                                     <a href="{{ route('peminjamsiswa.edit', $peminjam->id) }}" class="btn btn-warning">
                                         Kembalikan Barang

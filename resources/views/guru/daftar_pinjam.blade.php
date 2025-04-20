@@ -94,8 +94,8 @@
                                 <td>{{ $peminjam->peminjam->name }}</td>
                                 <td>{{ $peminjam->barang->nama }}</td>
                                 <td>{{ $peminjam->jumlah }}</td>
-                                <td>{{ $peminjam->pinjam_date }}</td>
-                                <td>{{ $peminjam->kembali_date }}</td>
+                                <td>{{ \Carbon\Carbon::parse($peminjam->pinjam_date)->format('d-m-Y') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($peminjam->kembali_date)->format('d-m-Y') }}</td>
                             </tr>
                             @endforeach
                         </tbody>
