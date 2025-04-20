@@ -100,43 +100,40 @@ class PeminjamController extends Controller
             return redirect()->back()->with('error', 'Session peminjam tidak tersedia. Silakan login ulang.');
         }
 
-        
         $peminjam = [
             'id' => session('peminjam_id'),
             'type' => session('peminjam_type')
         ];
 
-        
+        // Validasi input termasuk jumlah
         $request->validate([
             'barang_id' => 'required|exists:barangs,id',
+            'jumlah' => 'required|integer|min:1'
         ]);
 
         // Cari barang
         $barang = Barang::findOrFail($request->barang_id);
-
-        if ($barang->stok <= 0) {
-            return redirect()->back()->with('error', 'Barang ini sudah habis, tidak bisa dipinjam.');
-        }
+       
 
         // Simpan data peminjaman
         Peminjam::create([
             'peminjam_id' => $peminjam['id'],
             'peminjam_type' => $peminjam['type'],
             'barang_id' => $request->barang_id,
+            'jumlah' => $request->jumlah,
             'pinjam_date' => now(),
-            'kembali_date' => now()->addDays(7), 
+            'kembali_date' => now()->addDays(7),
             'status' => 'dipinjam',
         ]);
 
-        // Kurangi stok barang
-        $barang->decrement('stok');
+        // Kurangi stok barang sesuai jumlah yang dipinjam
+        $barang->decrement('stok', $request->jumlah);
 
         return redirect('/scan')->with('success', 'Barang berhasil dipinjam.');
     } catch (\Exception $e) {
         return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
     }
 }
-
 
 
     /**
@@ -197,7 +194,7 @@ class PeminjamController extends Controller
 
         // Tambah stok barang
         $barang = Barang::findOrFail($peminjaman->barang_id);
-        $barang->increment('stok');
+        $barang->increment('stok', $peminjaman->jumlah);
 
         return redirect('/pengembalian')->with('success', 'Barang berhasil dikembalikan.');
     } catch (\Exception $e) {

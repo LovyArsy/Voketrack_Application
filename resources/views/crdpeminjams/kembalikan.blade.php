@@ -94,6 +94,11 @@
             </div>
 
             <div class="mb-3">
+                <label class="form-label">Jumlah Yang Dipinjam</label>
+                <input type="text" class="form-control" value="{{ $peminjaman->jumlah }}" disabled>
+            </div>
+
+            <div class="mb-3">
                 <label class="form-label">Upload Foto Bukti</label>
                 <input type="file" class="form-control" name="foto_bukti" required>
             </div>

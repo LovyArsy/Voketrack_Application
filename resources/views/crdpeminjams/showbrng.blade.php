@@ -93,6 +93,11 @@
                     <input type="hidden" name="peminjam_type" value="{{ session('peminjam_type') }}">
                     <input type="hidden" name="barang_id" value="{{ $barang->id }}">
 
+                    <div class="mb-3">
+                        <label for="jumlah" class="form-label">Jumlah yang Ingin Dipinjam</label>
+                        <input type="number" class="form-control" id="jumlah" name="jumlah" min="1" max="{{ $barang->stok }}" value="1" required>
+                    </div>
+
                     <button type="submit" class="btn btn-success btn-lg w-100">Pinjam Barang</button>
                 </form>
             </div>

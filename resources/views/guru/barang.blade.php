@@ -127,6 +127,9 @@
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
                                     </form>
+                                    <a href="{{ asset('qrcodes/' . $item->kode . '.png') }}" download class="btn btn-primary">
+                                        Download QR Code
+                                    </a>
                                 </td>
                             </tr>
                             @endforeach

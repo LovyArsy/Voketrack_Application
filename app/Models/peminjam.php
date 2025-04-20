@@ -22,6 +22,7 @@ class Peminjam extends Model
     'foto_bukti',      
     'denda',           
     'status',
+    'jumlah',
 ];
 
 
