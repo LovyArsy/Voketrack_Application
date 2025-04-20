@@ -94,6 +94,7 @@
                                 <th>ID</th>
                                 <th>Nama Barang</th>
                                 <th>Peminjam</th>
+                                <th>Jumlah</th>
                                 <th>Tanggal Pinjam</th>
                                 <th>Maximal Pengembalian</th>
                                 <th>Tanggal Dikembalikan</th>
@@ -108,6 +109,7 @@
                                     <td>{{ $peminjam->id }}</td>
                                     <td>{{ $peminjam->barang->nama }}</td>
                                     <td>{{ $peminjam->peminjam->name }}</td>
+                                    <td>{{ $peminjam->jumlah }}</td>
                                     <td>{{ $peminjam->pinjam_date }}</td>
                                     <td>{{ $peminjam->kembali_date }}</td>
                                     <td>{{ $peminjam->kembalinya_date }}</td>
